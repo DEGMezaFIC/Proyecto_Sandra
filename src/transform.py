@@ -10,12 +10,12 @@ def Transformar_Datos (df_Clientes, df_Ventas):
     #convercacion de tipos
     df_Ventas['fecha'] = pd.to_datetime(df_Ventas['fecha'])
     #union usando la id de clientes como llave
-    df_Unificado = pd.merge(df_Ventas, df_Clientes, left_on='id_clientes', right_on='id', how='inner')
+    df_Unificado = pd.merge(df_Ventas, df_Clientes, left_on='id_cliente', right_on='id', how='inner')
     #agregacion total_gastado por cliente y conteo por la ciudadd
-    Total_Gastado = df_Unificado.groupbt(['id_cliente', 'nombre'])['monto'].sum().reset_index()
+    Total_Gastado = df_Unificado.groupby(['id_cliente', 'nombre'])['monto'].sum().reset_index()
     Total_Gastado.rename(columns={'monto': 'Total_Gastado'}, inplace=True)
     
-    Conteo_Ciudad =df_Unificado.groupby('ciudad')['id_clientes'].count().reset_index_()
-    Conteo_Ciudad.rename(columns={'id_clientes': 'Conteo_Transaccion'}, inplace=True)
+    Conteo_Ciudad =df_Unificado.groupby('ciudad')['id_cliente'].count().reset_index()
+    Conteo_Ciudad.rename(columns={'id_cliente': 'Conteo_Transaccion'}, inplace=True)
 
     return df_Unificado, Total_Gastado
