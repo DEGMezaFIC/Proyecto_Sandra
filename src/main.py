@@ -3,8 +3,8 @@ import transform
 import load
 
 #confirguracion
-Config_pg = {'user': 'postgres', 'pass': 'tu_pass', 'host':'localhost', 'port': '5432', 'db': 'Clientes_db'}
-Config_my = {'user': 'root', 'pass': 'tu_pass', 'host':'localhost', 'port': '3306', 'db': 'ventas'}
+Config_pg = {'user': 'postgres', 'pass': 'admin123', 'host':'localhost', 'port': '5432', 'db': 'Clientes_db'}
+Config_my = {'user': 'root', 'pass': 'admin123', 'host':'localhost', 'port': '3306', 'db': 'ventas'}
 
 def Ejecutar_etl():
     #extraccion
@@ -16,7 +16,7 @@ def Ejecutar_etl():
         df_final, df_gastado = transform.Transformar_Datos(clientes, ventas)
 
         #carga
-        load.cargar_datos(df_final, "resultado_etl_final.csv")
-        load.cargar_datos(df_gastado, "metricas_clientes.csv")
+        load.Cargar_Datos(df_final, "resultado_etl_final.csv")
+        load.Cargar_Datos(df_gastado, "metricas_clientes.csv")
 if __name__ == "__main__":
     Ejecutar_etl()

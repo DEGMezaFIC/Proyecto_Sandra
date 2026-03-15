@@ -34,3 +34,4 @@ FROM
 ) numeros
 LIMIT 3000;
 select * from Ventas where id = 3000;
+SELECT * FROM Ventas;
