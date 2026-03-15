@@ -9,7 +9,7 @@ Config_my = {'user': 'root', 'pass': 'tu_pass', 'host':'localhost', 'port': '330
 def Ejecutar_etl():
     #extraccion
     clientes = extract.Extraer_Clientes_pg(Config_pg)
-    ventas = extract.Extraer_Ventas_pg(Config_my)
+    ventas = extract.Extraer_Ventas_Mysql(Config_my)
 
     if clientes is not None and ventas is not None:
         #tranformacion
@@ -17,6 +17,6 @@ def Ejecutar_etl():
 
         #carga
         load.cargar_datos(df_final, "resultado_etl_final.csv")
-        load.cargar_datos(df_gastado. "metricas_clientes.csv")
+        load.cargar_datos(df_gastado, "metricas_clientes.csv")
 if __name__ == "__main__":
-    ejecutar_etl()
+    Ejecutar_etl()
