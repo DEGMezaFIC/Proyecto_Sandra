@@ -1,0 +1,36 @@
+CREATE DATABASE ventas;
+-- Usar la base de datos
+USE ventas;
+-- Crear tabla
+CREATE TABLE Ventas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    monto DECIMAL(10,2),
+    fecha DATE
+);
+
+-- Insertar 3000 registros con nulos y repetidos
+INSERT INTO Ventas (id_cliente, monto, fecha)
+SELECT
+    -- Algunos ID de cliente nulos
+    IF(RAND() < 0.05, NULL, FLOOR(RAND()*100)+1),
+
+    -- Algunos montos nulos
+    IF(RAND() < 0.08, NULL, ROUND(RAND()*1000,2)),
+
+    -- Algunas fechas nulas
+    IF(RAND() < 0.05, NULL,
+        DATE_ADD('2020-01-01', INTERVAL FLOOR(RAND()*1500) DAY)
+    )
+
+FROM
+(
+    SELECT a.N + b.N*10 + c.N*100 + d.N*1000 + 1 AS num
+    FROM
+    (SELECT 0 N UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) a,
+    (SELECT 0 N UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) b,
+    (SELECT 0 N UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) c,
+    (SELECT 0 N UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) d
+) numeros
+LIMIT 3000;
+select * from Ventas where id = 3000;
